@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GK Holidays | Tour Feedback Form</title>
+  
+  <!-- Preconnect to Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="styles.css" />
+  
+  <style>
+    /* Custom CSS Overrides for Feedback Page to Make It Extremely Premium */
+    .feedback-body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+    
+    .feedback-card {
+      width: 100%;
+      max-width: 600px;
+      padding: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      margin-top: 20px;
+    }
+    
+    .feedback-card:hover {
+      box-shadow: var(--glow-primary), var(--shadow-lg);
+      border-color: var(--border-focus);
+    }
+    
+    .logo-container {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    
+    .logo-container img {
+      max-height: 60px;
+      border-radius: 8px;
+    }
+    
+    .form-title {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--text-white);
+    }
+    
+    .form-desc {
+      text-align: center;
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+    }
+    
+    .rating-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 15px;
+      transition: var(--transition);
+    }
+
+    body.light-mode .rating-row {
+      background: rgba(0, 0, 0, 0.02);
+    }
+    
+    .rating-row:hover {
+      border-color: var(--border-focus);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    
+    .rating-label {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-white);
+    }
+    
+    .stars-input {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .star-btn {
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.15s ease;
+      user-select: none;
+    }
+    
+    .star-btn:hover {
+      transform: scale(1.25);
+    }
+    
+    .star-btn.active {
+      color: var(--primary);
+      text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+    
+    .char-counter {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+    
+    .success-overlay {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(16, 185, 129, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--success);
+      margin-bottom: 25px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    
+    .success-title {
+      font-size: 2.2rem;
+      color: var(--text-white);
+      margin-bottom: 12px;
+    }
+    
+    .success-desc {
+      color: var(--text-gray);
+      margin-bottom: 30px;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body class="feedback-body">
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Theme Toggle Floating Button -->
+  <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Theme" title="Toggle Theme" style="position: absolute; top: 20px; right: 20px;">
+    <!-- Sun Icon (shown in dark mode) -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <!-- Moon Icon (shown in light mode) -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  </button>
+
+  <div class="feedback-card" id="formWrapper">
+    <div class="logo-container">
+      <img src="logo.png" alt="GK Holidays Logo" />
+    </div>
+    
+    <h2 class="form-title">Student Tour Feedback</h2>
+    <p class="form-desc">Thank you for traveling with us! Share your honest feedback to help us keep improving your experience.</p>
+    
+    <form id="feedbackForm">
+      <!-- College Name -->
+      <div class="form-group">
+        <label for="collegeName">College / Institute Name *</label>
+        <input type="text" id="collegeName" placeholder="Enter your college name..." required />
+      </div>
+      
+      <!-- Student Name -->
+      <div class="form-group">
+        <label for="studentName">Student Name *</label>
+        <input type="text" id="studentName" placeholder="Enter your full name..." required />
+      </div>
+      
+      <!-- Ratings Section -->
+      <div class="form-group" style="margin-top: 25px;">
+        <label style="margin-bottom: 12px; display: block; font-weight: 600;">Tour Aspect Ratings *</label>
+        
+        <!-- Food Rating -->
+        <div class="rating-row">
+          <span class="rating-label">Food Quality</span>
+          <div class="stars-input" data-aspect="food">
+            <span class="star-btn" data-val="1">★</span>
+            <span class="star-btn" data-val="2">★</span>
+            <span class="star-btn" data-val="3">★</span>
+            <span class="star-btn" data-val="4">★</span>
+            <span class="star-btn" data-val="5">★</span>
+          </div>
+          <input type="hidden" id="foodRating" value="" required />
+        </div>
+        
+        <!-- Travel Rating -->
+        <div class="rating-row">
+          <span class="rating-label">Travel / Transport Comfort</span>
+          <div class="stars-input" data-aspect="travel">
+            <span class="star-btn" data-val="1">★</span>
+            <span class="star-btn" data-val="2">★</span>
+            <span class="star-btn" data-val="3">★</span>
+            <span class="star-btn" data-val="4">★</span>
+            <span class="star-btn" data-val="5">★</span>
+          </div>
+          <input type="hidden" id="travelRating" value="" required />
+        </div>
+        
+        <!-- Places Rating -->
+        <div class="rating-row">
+          <span class="rating-label">Places Visited / Itinerary</span>
+          <div class="stars-input" data-aspect="places">
+            <span class="star-btn" data-val="1">★</span>
+            <span class="star-btn" data-val="2">★</span>
+            <span class="star-btn" data-val="3">★</span>
+            <span class="star-btn" data-val="4">★</span>
+            <span class="star-btn" data-val="5">★</span>
+          </div>
+          <input type="hidden" id="placesRating" value="" required />
+        </div>
+      </div>
+      
+      <!-- Comments -->
+      <div class="form-group" style="margin-top: 25px;">
+        <label for="comments">Overall Tour Comments</label>
+        <textarea id="comments" rows="4" placeholder="Tell us what you liked the most or where we could improve..." maxlength="1000"></textarea>
+        <div class="char-counter" id="charCounter">0 / 1000</div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary btn-submit">Submit Feedback Form</button>
+    </form>
+  </div>
+
+  <!-- Success View -->
+  <div class="feedback-card success-overlay" id="successWrapper">
+    <div class="success-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h2 class="success-title">Thank You!</h2>
+    <p class="success-desc">Your valuable feedback has been submitted successfully. It will be showcased on our official website soon!</p>
+    <button class="btn btn-secondary" onclick="resetFeedbackForm()">Submit Another Feedback</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Theme toggling mirroring index.html
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      const currentTheme = localStorage.getItem("theme") || "dark";
+      if (currentTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+      
+      themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        const theme = document.body.classList.contains("light-mode") ? "light" : "dark";
+        localStorage.setItem("theme", theme);
+        showToast(`Switched to ${theme} mode!`, "success");
+      });
+
+      // Rating systems setup
+      document.querySelectorAll(".stars-input").forEach(container => {
+        const aspect = container.dataset.aspect;
+        const hiddenInput = document.getElementById(`${aspect}Rating`);
+        const stars = container.querySelectorAll(".star-btn");
+        
+        stars.forEach(star => {
+          star.addEventListener("click", () => {
+            const val = parseInt(star.dataset.val);
+            hiddenInput.value = val;
+            
+            // Toggle highlight status
+            stars.forEach((s, idx) => {
+              if (idx < val) {
+                s.classList.add("active");
+              } else {
+                s.classList.remove("active");
+              }
+            });
+          });
+        });
+      });
+
+      // Textarea Character Counter
+      const commentsText = document.getElementById("comments");
+      const charCounter = document.getElementById("charCounter");
+      commentsText.addEventListener("input", () => {
+        charCounter.textContent = `${commentsText.value.length} / 1000`;
+      });
+
+      // Form submission handler
+      const feedbackForm = document.getElementById("feedbackForm");
+      feedbackForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        const collegeName = document.getElementById("collegeName").value.trim();
+        const studentName = document.getElementById("studentName").value.trim();
+        const foodRating = document.getElementById("foodRating").value;
+        const travelRating = document.getElementById("travelRating").value;
+        const placesRating = document.getElementById("placesRating").value;
+        const comments = commentsText.value.trim();
+        
+        // Custom verification
+        if (!foodRating || !travelRating || !placesRating) {
+          showToast("Please provide rating stars for all three categories!", "error");
+          return;
+        }
+        
+        const payload = {
+          collegeName,
+          studentName,
+          foodRating: parseInt(foodRating),
+          travelRating: parseInt(travelRating),
+          placesRating: parseInt(placesRating),
+          comments
+        };
+        
+        try {
+          const res = await fetch("/api/feedback", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+          
+          const result = await res.json();
+          if (res.ok) {
+            showToast("Feedback submitted successfully!", "success");
+            
+            // Switch views
+            document.getElementById("formWrapper").style.display = "none";
+            document.getElementById("successWrapper").style.display = "flex";
+          } else {
+            showToast(result.error || "Failed to submit feedback.", "error");
+          }
+        } catch (err) {
+          showToast("Network error. Please try again.", "error");
+        }
+      });
+    });
+
+    function resetFeedbackForm() {
+      // Clear values
+      document.getElementById("feedbackForm").reset();
+      document.getElementById("foodRating").value = "";
+      document.getElementById("travelRating").value = "";
+      document.getElementById("placesRating").value = "";
+      document.getElementById("charCounter").textContent = "0 / 1000";
+      
+      document.querySelectorAll(".star-btn").forEach(s => s.classList.remove("active"));
+      
+      // Switch views back
+      document.getElementById("successWrapper").style.display = "none";
+      document.getElementById("formWrapper").style.display = "block";
+    }
+
+    // Reuse or implement simple toast utility
+    function showToast(message, type = "success") {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+      
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+      
+      let icon = "";
+      if (type === "success") {
+        icon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+      } else {
+        icon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+      }
+      
+      toast.innerHTML = `
+        <div style="display: flex; align-items: center;">
+          ${icon}
+          <span>${message}</span>
+        </div>
+      `;
+      
+      container.appendChild(toast);
+      
+      // Trigger slide in
+      setTimeout(() => {
+        toast.classList.add("show");
+      }, 10);
+      
+      // Auto-remove
+      setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

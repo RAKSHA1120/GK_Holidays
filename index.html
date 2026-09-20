@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Metadata -->
+  <title>GK Holidays | Best Domestic & International Tour Packages</title>
+  <meta name="description" content="Explore custom holiday tour packages with GK Holidays. One Day and Two Day plans for Kanthaloor, Munnar, Kochi, Alleppey, Varkala, Vagamon, and more." />
+  <meta name="keywords" content="GK Holidays, travel agency Erode, Kanthaloor tour, Munnar package, Kochi travel, Alleppey houseboat, Varkala beach, Vagamon, Wonderla, school trip, college tour, group packages" />
+  
+  <!-- Preconnect to Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Style Sheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container nav-container">
+      <a href="#home" class="logo" aria-label="GK Holidays Home">
+        <img src="logo.png" alt="GK Holidays Logo" />
+      </a>
+      
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About Us</a></li>
+          <li><a href="#packages" class="nav-link">Tour Packages</a></li>
+          <li><a href="#reviews" class="nav-link">Reviews</a></li>
+          <li><a href="#faqs" class="nav-link">FAQs</a></li>
+          <li><a href="#contact" class="nav-link">Contact Us</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light/Dark Theme" title="Toggle Theme">
+        <!-- Sun Icon (shown in dark mode) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <!-- Moon Icon (shown in light mode) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="section-subtitle">Premium Travel Brand ✨</span>
+        <h1>Travel Together, Create <span>Memories Forever</span></h1>
+        <p>Explore handcrafted, reliable, and premium group tours, honeymoon trips, and weekend getaways with local guides, transport, and lodging handled completely by experts.</p>
+        <div class="hero-btns">
+          <a href="#packages" class="btn btn-primary">Explore Packages</a>
+          <a href="#contact" class="btn btn-secondary">Inquire Now</a>
+        </div>
+      </div>
+      <div class="hero-image-wrapper">
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80" alt="Beautiful Scenic Lake Tour" />
+          <div class="hero-card-content">
+            <span class="hero-card-badge">Best Seller</span>
+            <h3>Misty Munnar & Beyond</h3>
+            <p>Unforgettable weekend escapes to South India's premium hill stations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tariff / Features Menu (Inspired by GK Tour Tariff Flyer) -->
+  <section class="features-menu" aria-label="Services Highlights">
+    <div class="container features-grid">
+      <div class="feature-item">
+        <span class="feature-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </span>
+        <span>SAFE TRAVEL</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3H5C3.34 3 2 4.34 2 6v5c0 1.66 1.34 3 3 3h14z"></path><path d="M2 14v5c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-5"></path><line x1="8" y1="14" x2="8" y2="21"></line><line x1="16" y1="14" x2="16" y2="21"></line></svg>
+        </span>
+        <span>COMFORTABLE JOURNEY</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v14M12 22v-3M8 2v4a4 4 0 0 0 8 0V2M18 2v14h3M21 22v-6"></path></svg>
+        </span>
+        <span>DELICIOUS FOOD</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </span>
+        <span>EXPERT TEAM</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        </span>
+        <span>MEMORABLE EXPERIENCE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="container about-grid">
+      <div class="about-img-box">
+        <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=800&q=80" alt="Traveller enjoying a mountain landscape view" class="about-img-main" />
+        <div class="about-img-badge">
+          <strong>100%</strong>
+          <span>Happy Travelers</span>
+        </div>
+      </div>
+      
+      <div class="about-content">
+        <span class="section-subtitle">Who We Are</span>
+        <h2>Personalized travel planning built on trust and comfort.</h2>
+        <p>GK Holidays helps families, friends, schools, colleges, and corporate groups design the perfect getaway. We focus on transparent prices, clean transportation, delicious meals, and local expert support throughout the journey.</p>
+        
+        <div class="about-highlights">
+          <div class="about-highlight-item">
+            <span aria-hidden="true">✔</span> Friendly Tour Managers
+          </div>
+          <div class="about-highlight-item">
+            <span aria-hidden="true">✔</span> Customizable Itineraries
+          </div>
+          <div class="about-highlight-item">
+            <span aria-hidden="true">✔</span> Handpicked Accommodations
+          </div>
+          <div class="about-highlight-item">
+            <span aria-hidden="true">✔</span> 24/7 On-Trip Assistance
+          </div>
+        </div>
+        
+        <a href="#contact" class="btn btn-primary">Connect With Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages Section -->
+  <section class="section packages-explorer" id="packages">
+    <div class="container">
+      <span class="section-subtitle">Our Tariff Menu</span>
+      <h2 class="section-title">Explore Tour Packages</h2>
+      <p class="section-desc">Find standard 1-day trips, weekend 2-day escapes, or tell us your requirements for custom plans.</p>
+      
+      <div class="filter-bar">
+        <!-- Search -->
+        <div class="search-box">
+          <span class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input type="text" id="packageSearch" placeholder="Search destination (e.g. Munnar, Kochi)..." />
+        </div>
+        
+        <!-- Filter Tabs -->
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-filter="all">All Tours</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-filter="oneday">1-Day Plans</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-filter="twodays">2-Day Plans</button>
+        </div>
+      </div>
+      
+      <!-- Grid Container -->
+      <div class="tour-grid" id="tourGrid">
+        <!-- Dynamic Cards Injected via Script -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Package Details Modal -->
+  <div class="modal-overlay" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Package Title</h2>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close details modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-hero">
+          <img src="" id="modalImg" alt="Tour image" />
+          <div class="modal-hero-info">
+            <p id="modalCategory" style="color: var(--primary); text-transform: uppercase; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em;"></p>
+            <h3 id="modalTourName" style="font-size: 1.6rem; margin: 5px 0 10px;">Tour Title</h3>
+            <p id="modalSummary" style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.5;"></p>
+            
+            <div class="modal-meta-grid">
+              <div class="modal-meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; display: inline-block; vertical-align: middle;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span id="modalDuration" style="vertical-align: middle;">1 Day</span>
+              </div>
+              <div class="modal-meta-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; display: inline-block; vertical-align: middle;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                <span id="modalType" style="vertical-align: middle;">Nature & Adventure</span>
+              </div>
+            </div>
+            
+            <div class="modal-price-box">
+              <span>Price per person</span>
+              <strong id="modalPrice">Rs. 2,500</strong>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tabs Nav -->
+        <div class="modal-tabs" role="tablist">
+          <button class="modal-tab-btn active" role="tab" aria-selected="true" data-modal-tab="itinerary">Itinerary</button>
+          <button class="modal-tab-btn" role="tab" aria-selected="false" data-modal-tab="highlights">Highlights</button>
+          <button class="modal-tab-btn" role="tab" aria-selected="false" data-modal-tab="inclusions">Inclusions & Exclusions</button>
+        </div>
+        
+        <!-- Tabs Panes -->
+        <div class="modal-tab-content">
+          <!-- Itinerary Pane -->
+          <div class="modal-tab-pane active" id="pane-itinerary">
+            <ul class="modal-list modal-list-itinerary" id="modalItineraryList">
+              <!-- Injected by script -->
+            </ul>
+          </div>
+          
+          <!-- Highlights Pane -->
+          <div class="modal-tab-pane" id="pane-highlights">
+            <ul class="modal-list" id="modalHighlightsList" style="list-style-type: square; padding-left: 20px;">
+              <!-- Injected by script -->
+            </ul>
+          </div>
+          
+          <!-- Inclusions Pane -->
+          <div class="modal-tab-pane" id="pane-inclusions">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+              <div>
+                <h4 style="color: var(--success); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">✔️ Inclusions</h4>
+                <ul class="modal-list modal-list-inclusions" id="modalInclusionsList">
+                  <!-- Injected by script -->
+                </ul>
+              </div>
+              <div>
+                <h4 style="color: var(--danger); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">❌ Exclusions</h4>
+                <ul class="modal-list modal-list-exclusions" id="modalExclusionsList">
+                  <!-- Injected by script -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modalCancelBtn">Close</button>
+        <a href="" target="_blank" class="btn btn-whatsapp" id="modalBookBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 448 512" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+          Book on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Reviews Section -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <span class="section-subtitle">Student Testimonials</span>
+      <h2 class="section-title">What Our Travelers Say</h2>
+      <p class="section-desc">Real feedback from students and coordinators who experienced our custom tour packages.</p>
+      
+      <div class="reviews-grid" id="reviewsGrid">
+        <!-- Injected by script -->
+        <p style="text-align: center; color: var(--text-gray); grid-column: 1 / -1; padding: 40px 0;">Loading reviews...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Section -->
+  <section class="section faqs" id="faqs">
+    <div class="container">
+      <span class="section-subtitle">Travel Information</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Have questions about travel bookings? Here are some quick answers to clear your doubts.</p>
+      
+      <div class="faq-grid">
+        <div class="faq-item">
+          <button class="faq-question-btn" aria-expanded="false">
+            What is included in the tour packages?
+            <span class="faq-icon-state" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Our standard package prices include comfortable transportation (bus/jeep as specified), refreshments, tour manager guidance, and designated meals. Jeep safaris, campfires, boating, or entry tickets are also included if specifically listed under the package inclusions.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question-btn" aria-expanded="false">
+            Can we customize the plan for schools, colleges, or family groups?
+            <span class="faq-icon-state" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes, absolutely! We specialize in custom group packages for schools, colleges, corporate excursions, and extended family tours. Contact us directly with your dates, traveler count, and preferred destination to receive a custom quote.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question-btn" aria-expanded="false">
+            How do we confirm our booking?
+            <span class="faq-icon-state" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              You can start your booking by sending an enquiry via our website form, giving us a call, or messaging us on WhatsApp. Once we discuss details, you can confirm your tour by paying an advance amount. The remaining balance can be cleared before or during the journey.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" aria-expanded="false">
+            Is travel insurance or entry permission included?
+            <span class="faq-icon-state" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Standard forest entry permissions, toll gates, and permit charges are included in the package cost. Flight tickets, personal insurance, and individual camera fees are excluded unless specifically mentioned.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section class="section contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <div>
+          <span class="section-subtitle">Reach Out</span>
+          <h3>Let's plan your next memorable vacation</h3>
+          <p class="contact-info-desc">Feel free to contact us via phone, WhatsApp, email, or visit our office. We are happy to help you design your ideal getaway.</p>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <div class="contact-item-details">
+            <h4>Office Address</h4>
+            <p id="contactAddress">C4, First Floor, Alayamani Enclave, Paari Nagar, Palayapalayam Pirivu, Erode - 638 011. Tamilnadu. India.</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </div>
+          <div class="contact-item-details">
+            <h4>Contact Phone Numbers</h4>
+            <div id="contactPhonesList">
+              <p><a href="tel:+918072812071">+91 8072 812 071</a></p>
+              <p><a href="tel:+919842879490">+91 98428 79490</a></p>
+              <p><a href="tel:+916380021474">+91 63800 21474</a></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </div>
+          <div class="contact-item-details">
+            <h4>Email Address</h4>
+            <p><a href="mailto:gkholidays@gmail.com" id="contactEmail">gkholidays@gmail.com</a></p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </div>
+          <div class="contact-item-details">
+            <h4>Follow Instagram</h4>
+            <p><a href="https://www.instagram.com/gk_holidays_official" target="_blank" rel="noopener noreferrer" id="contactInstagram">@gk_holidays_official</a></p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Interactive Form -->
+      <div class="contact-form-card">
+        <h3>Quick Enquiry</h3>
+        <p>Fill out the form below and we will contact you immediately with details.</p>
+        
+        <form id="enquiryForm">
+          <div class="form-group">
+            <label for="formType">Trip Category</label>
+            <select id="formType" name="tripType" required>
+              <option value="">-- Choose Category --</option>
+              <option value="1 Day Tour">1-Day Plan</option>
+              <option value="2 Day Tour">2-Day Plan</option>
+              <option value="Group Tour">Group Tour (School/College/Corp)</option>
+              <option value="Honeymoon Package">Honeymoon Package</option>
+              <option value="Custom Tour">Custom Package</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="formName">Full Name</label>
+            <input type="text" id="formName" name="fullName" placeholder="Enter your name" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="formPhone">Phone Number</label>
+            <input type="tel" id="formPhone" name="phoneNumber" placeholder="Enter phone number (+91...)" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="formDetails">Travel Details & Requirements</label>
+            <textarea id="formDetails" name="requirements" rows="4" placeholder="Mention destination, date of travel, number of travelers, budget, etc."></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 448 512" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 6px;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+            Send Enquiry on WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Call/WhatsApp Buttons for Mobile Quick Actions -->
+  <div class="floating-actions">
+    <a href="tel:+918072812071" class="float-btn float-call" id="floatCallBtn" aria-label="Call Us Directly" title="Call Us">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+    </a>
+    <a href="https://wa.me/918072812071" target="_blank" rel="noopener noreferrer" class="float-btn float-wa" id="floatWaBtn" aria-label="Chat on WhatsApp" title="WhatsApp Chat">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 448 512" fill="currentColor" style="display: block;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col-about">
+        <img src="logo.png" alt="GK Holidays Footer Logo" />
+        <p>Your premium gateway to South India's finest destinations. Crafting comfortable, safe, and exciting holiday memories since inception.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/918072812071" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" id="footerWaLink" aria-label="WhatsApp Link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/gk_holidays_official" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" id="footerInstagramLink" aria-label="Instagram Link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+        </div>
+      </div>
+      
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#packages">Tour Packages</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4>Hot Packages</h4>
+        <ul class="footer-links">
+          <li><a href="#packages">One Day Munnar</a></li>
+          <li><a href="#packages">One Day Kanthaloor</a></li>
+          <li><a href="#packages">2 Days Munnar & Kochi</a></li>
+          <li><a href="#packages">2 Days Vagamon & Kochi</a></li>
+          <li><a href="#packages">Kochi & Wonderla</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4>Contact Us</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <span class="icon" aria-hidden="true" style="margin-top: 3px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </span>
+            <span id="footerAddress">C4, First Floor, Alayamani Enclave, Paari Nagar, Palayapalayam Pirivu, Erode - 638 011.</span>
+          </li>
+          <li>
+            <span class="icon" aria-hidden="true" style="margin-top: 3px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </span>
+            <div id="footerPhonesList">
+              <a href="tel:+918072812071">+91 8072 812 071</a><br>
+              <a href="tel:+919842879490">+91 98428 79490</a><br>
+              <a href="tel:+916380021474">+91 63800 21474</a>
+            </div>
+          </li>
+          <li>
+            <span class="icon" aria-hidden="true" style="margin-top: 3px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </span>
+            <a href="mailto:gkholidays@gmail.com" id="footerEmail">gkholidays@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <p>Copyright &copy; 2026 GK Holidays. All rights reserved.</p>
+      <p>Designed with ❤️ for GK Holidays</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="packages-data.js?v=2026092002"></script>
+  <script src="script.js?v=2026092002"></script>
+</body>
+</html>

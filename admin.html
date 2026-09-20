@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GK Holidays | Admin Portal</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-deep: #050b14;
+      --bg-dark: #0a1128;
+      --bg-card: #0f1935;
+      --bg-card-hover: #142247;
+      --primary: #f59e0b;
+      --primary-hover: #d97706;
+      --text-white: #ffffff;
+      --text-gray: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --danger: #ef4444;
+      --success: #10b981;
+    }
+
+    body.light-mode {
+      --bg-deep: #f1f5f9;
+      --bg-dark: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --text-white: #0f172a;
+      --text-gray: #475569;
+      --border: #cbd5e1;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .theme-toggle-btn .theme-icon-moon {
+      display: none;
+    }
+    .theme-toggle-btn .theme-icon-sun {
+      display: block;
+    }
+
+    body.light-mode .theme-toggle-btn .theme-icon-moon {
+      display: block;
+    }
+    body.light-mode .theme-toggle-btn .theme-icon-sun {
+      display: none;
+    }
+
+    body.light-mode .btn-secondary {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    body.light-mode .btn-secondary:hover {
+      background-color: #e2e8f0;
+    }
+
+    body.light-mode .package-item {
+      background-color: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    body.light-mode .meta-tag {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container img {
+      height: 45px;
+      border-radius: 4px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #dc2626;
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .admin-layout {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 76px);
+    }
+
+    .admin-sidebar {
+      width: 280px;
+      background-color: var(--bg-dark);
+      border-right: 1px solid var(--border);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      width: 100%;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      font-family: 'Outfit', sans-serif;
+      text-align: left;
+    }
+
+    .sidebar-btn.btn-primary {
+      background-color: var(--primary);
+      color: #000;
+    }
+
+    .sidebar-btn.btn-secondary {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+    }
+
+    body.light-mode .sidebar-btn.btn-secondary {
+      background-color: #ffffff;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    .sidebar-btn:hover {
+      transform: translateX(4px);
+    }
+    
+    .sidebar-btn.btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+    
+    .sidebar-btn.btn-secondary:hover {
+      background-color: var(--bg-card-hover);
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+    }
+
+    .sidebar-website-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+    }
+
+    .admin-content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      max-width: 1400px;
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        flex-direction: column;
+      }
+      .admin-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .sidebar-menu {
+        width: 100%;
+      }
+      .sidebar-btn {
+        width: 100%;
+      }
+      .sidebar-bottom {
+        width: 100%;
+      }
+      .admin-content {
+        padding: 20px;
+      }
+    }
+
+    h1, h2, h3 {
+      font-family: 'Outfit', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+    }
+
+    @media (max-width: 1024px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-gray);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    select option {
+      background-color: var(--bg-deep);
+      color: var(--text-white);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .card-packages {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .packages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+      max-height: 1150px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    .package-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      transition: transform 0.2s;
+    }
+
+    .package-item:hover {
+      transform: translateX(4px);
+    }
+
+    .package-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .package-details {
+      flex: 1;
+    }
+
+    .package-details h4 {
+      font-family: 'Outfit', sans-serif;
+      margin-bottom: 4px;
+    }
+
+    .package-details p {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+    }
+
+    .package-meta {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .meta-tag {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-deep);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    /* Auth Overlay */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--bg-deep);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.3s ease;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-box img {
+      height: 60px;
+      margin-bottom: 30px;
+      border-radius: 4px;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 20000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--bg-card);
+      border-left: 4px solid var(--primary);
+      color: var(--text-white);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .toast.success {
+      border-left-color: var(--success);
+    }
+
+    .toast.error {
+      border-left-color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Modal -->
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-box card">
+      <img src="logo.png" alt="GK Holidays" style="max-height: 75px; width: auto; margin: 0 auto 15px; border-radius: 8px;" />
+      <h2>Admin Login</h2>
+      <p style="color: var(--text-gray); margin-bottom: 20px; font-size: 0.9rem;">Please enter password to access panel</p>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <input type="password" id="adminPassword" placeholder="Enter Admin Password" required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Log In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Dashboard -->
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="GK Holidays" />
+    </div>
+    <div class="header-right">
+      <span style="font-weight: 500; font-size: 0.95rem;">Admin Panel</span>
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" id="adminThemeToggle" aria-label="Toggle Light/Dark Theme" title="Toggle Theme">
+        <!-- Sun Icon (shown in dark mode) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <!-- Moon Icon (shown in light mode) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button class="btn btn-secondary" id="logoutBtn" style="padding: 6px 12px; font-size: 0.85rem;">Log Out</button>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <nav class="sidebar-menu">
+        <button class="sidebar-btn btn-primary" id="tabPackagesBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          Package Operations
+        </button>
+        <button class="sidebar-btn btn-secondary" id="tabSettingsBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Website Settings
+        </button>
+        <button class="sidebar-btn btn-secondary" id="tabFeedbackBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Feedback Management
+        </button>
+      </nav>
+      
+      <div class="sidebar-bottom">
+        <a href="/" target="_blank" class="btn btn-secondary sidebar-website-link" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          View Website &rarr;
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="admin-content">
+      <!-- View 1: Package Operations -->
+      <div class="admin-grid" id="packagesView">
+      <!-- Manage Current Packages -->
+      <div class="card card-packages">
+        <h3 style="display: flex; justify-content: space-between; align-items: center;">
+          Current Packages 
+          <span style="font-size: 0.9rem; font-weight: normal; color: var(--text-gray);" id="packageCount">Loading...</span>
+        </h3>
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+          <input type="text" id="packageSearch" placeholder="Search current packages by title or destination..." />
+        </div>
+
+        <div class="packages-list" id="packagesList">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Add New Package Form -->
+      <div class="card">
+        <h3 id="formTitle">Add New Package</h3>
+        
+        <form id="addPackageForm">
+          <div class="form-group">
+            <label for="pTitle">Package Title</label>
+            <input type="text" id="pTitle" placeholder="e.g. 3 Days Munnar Escape" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pDestination">Destination</label>
+              <input type="text" id="pDestination" placeholder="e.g. Munnar" required />
+            </div>
+            <div class="form-group">
+              <label for="pType">Trip Category/Type</label>
+              <input type="text" id="pType" placeholder="e.g. Hill Station Escape" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pDays">Duration Label</label>
+              <input type="text" id="pDays" placeholder="e.g. 2 Days" required />
+            </div>
+            <div class="form-group">
+              <label for="pRegion">Region Tab</label>
+              <select id="pRegion" required>
+                <option value="oneday">One Day Trip</option>
+                <option value="twodays">Two Days Trip</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pPrice">Price Starting (INR)</label>
+              <input type="number" id="pPrice" placeholder="e.g. 3500" required />
+            </div>
+            <div class="form-group">
+              <label for="pImage">Image URL</label>
+              <input type="url" id="pImage" placeholder="https://images.unsplash.com/..." required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pSummary">Summary Description</label>
+            <textarea id="pSummary" placeholder="Provide a brief summary of the tour package..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="pHighlights">Highlights (One per line)</label>
+            <textarea id="pHighlights" placeholder="Lush Tea Estates View&#10;Off-road Jeep Safari&#10;Cozy Campfire & Music" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="pItinerary">Itinerary Steps (One per line)</label>
+            <textarea id="pItinerary" placeholder="08:00 AM - Arrival and breakfast&#10;10:00 AM - Visit viewpoints&#10;06:00 PM - Campfire & dinner" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="pInclusions">Inclusions (One per line)</label>
+            <textarea id="pInclusions" placeholder="Comfortable Transportation&#10;Deluxe Hotel Stay&#10;All Standard Meals" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="pExclusions">Exclusions (One per line)</label>
+            <textarea id="pExclusions" placeholder="Personal shopping&#10;Additional snacks" required></textarea>
+          </div>
+
+          <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+            <button type="submit" id="submitPackageBtn" class="btn btn-primary" style="width: 100%;">Create & Publish Package</button>
+            <button type="button" id="cancelEditBtn" class="btn btn-secondary" style="width: 100%; display: none;">Cancel Edit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- View 2: Business & Contact Settings -->
+    <div id="settingsView" style="display: none;">
+      <div class="card" style="max-width: 850px; margin: 0 auto;">
+        <h3 style="display: flex; align-items: center; gap: 10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Business & Contact Settings
+        </h3>
+        <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 25px;">
+          Update your agency details (Address, Phone Numbers, Email, Instagram). Any modifications made here will automatically sync live to the website!
+        </p>
+
+        <form id="settingsForm">
+          <div class="form-group">
+            <label for="setAddress">Office Address</label>
+            <textarea id="setAddress" rows="3" placeholder="Enter complete office address..." required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="setWhatsapp">Primary WhatsApp Number (No + or spaces, e.g. 918072812071)</label>
+              <input type="text" id="setWhatsapp" placeholder="e.g. 918072812071" required />
+            </div>
+            <div class="form-group">
+              <label for="setEmail">Email Address</label>
+              <input type="email" id="setEmail" placeholder="e.g. gkholidays@gmail.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="setPhones">Contact Phone Numbers (One per line)</label>
+            <textarea id="setPhones" rows="3" placeholder="+91 8072 812 071&#10;+91 98428 79490&#10;+91 63800 21474" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="setInstaHandle">Instagram Handle</label>
+              <input type="text" id="setInstaHandle" placeholder="e.g. @gk_holidays_official" required />
+            </div>
+            <div class="form-group">
+              <label for="setInstaUrl">Instagram Profile Link URL</label>
+              <input type="url" id="setInstaUrl" placeholder="https://www.instagram.com/..." required />
+            </div>
+          </div>
+
+          <div style="margin-top: 25px;">
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem;">Save & Apply Settings</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- View 3: Feedback Management -->
+    <div id="feedbackView" style="display: none;">
+      <div class="card" style="max-width: 1100px; margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+          <div>
+            <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              Student Feedback Records
+            </h3>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin: 0;">
+              View, analyze and export structured feedbacks collected from students and tour clients.
+            </p>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <button class="btn btn-secondary" id="btnRefreshFeedback" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 0.9rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              Refresh Data
+            </button>
+            <button class="btn btn-secondary" id="btnCopyFeedbackLink" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 0.9rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy Form Link
+            </button>
+            <button class="btn btn-primary" id="btnExportCSV" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 0.9rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export to Excel (CSV)
+            </button>
+          </div>
+        </div>
+
+        <!-- Excel style spreadsheet table container -->
+        <div class="excel-table-container" style="overflow-x: auto;">
+          <table class="excel-table" id="feedbackTable" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th style="text-align: left; padding: 12px; border-bottom: 2px solid var(--border);">No.</th>
+                <th style="text-align: left; padding: 12px; border-bottom: 2px solid var(--border);">College / Institute Name</th>
+                <th style="text-align: left; padding: 12px; border-bottom: 2px solid var(--border);">Student Name</th>
+                <th style="text-align: center; padding: 12px; border-bottom: 2px solid var(--border);">Food (1-5)</th>
+                <th style="text-align: center; padding: 12px; border-bottom: 2px solid var(--border);">Travel (1-5)</th>
+                <th style="text-align: center; padding: 12px; border-bottom: 2px solid var(--border);">Places (1-5)</th>
+                <th style="text-align: left; padding: 12px; border-bottom: 2px solid var(--border);">Overall Comments</th>
+                <th style="text-align: left; padding: 12px; border-bottom: 2px solid var(--border);">Submitted Date</th>
+              </tr>
+            </thead>
+            <tbody id="feedbackTableBody">
+              <tr>
+                <td colspan="8" style="text-align: center; color: var(--text-gray); padding: 40px;">Loading feedback data...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Elements
+      const loginOverlay = document.getElementById("loginOverlay");
+      const loginForm = document.getElementById("loginForm");
+      const addPackageForm = document.getElementById("addPackageForm");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const packagesList = document.getElementById("packagesList");
+      const packageSearch = document.getElementById("packageSearch");
+      const packageCount = document.getElementById("packageCount");
+      const cancelEditBtn = document.getElementById("cancelEditBtn");
+      const submitPackageBtn = document.getElementById("submitPackageBtn");
+      const formTitle = document.getElementById("formTitle");
+
+      // Tabs & Settings Elements
+      const tabPackagesBtn = document.getElementById("tabPackagesBtn");
+      const tabSettingsBtn = document.getElementById("tabSettingsBtn");
+      const tabFeedbackBtn = document.getElementById("tabFeedbackBtn");
+      const packagesView = document.getElementById("packagesView");
+      const settingsView = document.getElementById("settingsView");
+      const feedbackView = document.getElementById("feedbackView");
+      const settingsForm = document.getElementById("settingsForm");
+      const feedbackTableBody = document.getElementById("feedbackTableBody");
+      const btnCopyFeedbackLink = document.getElementById("btnCopyFeedbackLink");
+      const btnExportCSV = document.getElementById("btnExportCSV");
+      const btnRefreshFeedback = document.getElementById("btnRefreshFeedback");
+
+      let currentPackages = [];
+      let currentFeedback = [];
+      let searchQuery = "";
+      let editingPackageId = null;
+
+      // Theme Toggle Logic
+      const adminThemeToggle = document.getElementById("adminThemeToggle");
+      const currentTheme = localStorage.getItem("theme") || "dark";
+      if (currentTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+
+      if (adminThemeToggle) {
+        adminThemeToggle.addEventListener("click", () => {
+          document.body.classList.toggle("light-mode");
+          const theme = document.body.classList.contains("light-mode") ? "light" : "dark";
+          localStorage.setItem("theme", theme);
+          showToast(`Switched to ${theme} mode!`, "success");
+        });
+      }
+
+      // Tab switching handlers
+      function setTabActive(tabName) {
+        tabPackagesBtn.classList.remove("btn-primary");
+        tabPackagesBtn.classList.add("btn-secondary");
+        tabSettingsBtn.classList.remove("btn-primary");
+        tabSettingsBtn.classList.add("btn-secondary");
+        tabFeedbackBtn.classList.remove("btn-primary");
+        tabFeedbackBtn.classList.add("btn-secondary");
+        
+        packagesView.style.display = "none";
+        settingsView.style.display = "none";
+        feedbackView.style.display = "none";
+        
+        if (tabName === "packages") {
+          tabPackagesBtn.classList.add("btn-primary");
+          tabPackagesBtn.classList.remove("btn-secondary");
+          packagesView.style.display = "grid";
+        } else if (tabName === "settings") {
+          tabSettingsBtn.classList.add("btn-primary");
+          tabSettingsBtn.classList.remove("btn-secondary");
+          settingsView.style.display = "block";
+        } else if (tabName === "feedback") {
+          tabFeedbackBtn.classList.add("btn-primary");
+          tabFeedbackBtn.classList.remove("btn-secondary");
+          feedbackView.style.display = "block";
+          fetchFeedback();
+        }
+      }
+
+      tabPackagesBtn.addEventListener("click", () => setTabActive("packages"));
+      tabSettingsBtn.addEventListener("click", () => setTabActive("settings"));
+      tabFeedbackBtn.addEventListener("click", () => setTabActive("feedback"));
+
+      // Check auth state on load
+      const token = sessionStorage.getItem("admin_token");
+      if (token) {
+        loginOverlay.style.display = "none";
+        fetchPackages();
+        fetchSettings();
+        fetchFeedback();
+      }
+
+      // Login form handler
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const password = document.getElementById("adminPassword").value;
+        
+        try {
+          const res = await fetch("/api/admin/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password })
+          });
+
+          const data = await res.json();
+          if (res.ok) {
+            sessionStorage.setItem("admin_token", data.token);
+            loginOverlay.style.display = "none";
+            showToast("Successfully logged in!", "success");
+            fetchPackages();
+            fetchSettings();
+            fetchFeedback();
+          } else {
+            showToast(data.error || "Login failed", "error");
+          }
+        } catch (err) {
+          showToast("Network error. Try again.", "error");
+        }
+      });
+
+      // Logout handler
+      logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("admin_token");
+        loginOverlay.style.display = "flex";
+        document.getElementById("adminPassword").value = "";
+        exitEditMode();
+        showToast("Logged out successfully.", "success");
+      });
+
+      // Fetch packages list
+      async function fetchPackages() {
+        try {
+          const res = await fetch("/api/packages");
+          if (res.ok) {
+            currentPackages = await res.json();
+            renderPackages();
+          } else {
+            showToast("Failed to load packages.", "error");
+          }
+        } catch (err) {
+          showToast("Failed to connect to database.", "error");
+        }
+      }
+
+      // Format currency
+      function formatPrice(amount) {
+        return new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          maximumFractionDigits: 0
+        }).format(amount);
+      }
+
+      // Render packages list
+      function renderPackages() {
+        const filtered = currentPackages.filter(p => {
+          const text = searchQuery.toLowerCase();
+          return p.title.toLowerCase().includes(text) || 
+                 p.destination.toLowerCase().includes(text);
+        });
+
+        packageCount.textContent = `${filtered.length} package(s)`;
+
+        if (filtered.length === 0) {
+          packagesList.innerHTML = `<p style="text-align: center; color: var(--text-gray); padding: 40px 0;">No packages found.</p>`;
+          return;
+        }
+
+        packagesList.innerHTML = filtered.map(p => `
+          <div class="package-item">
+            <img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=80&q=80'" />
+            <div class="package-details">
+              <h4>${p.title}</h4>
+              <p>${p.summary.slice(0, 80)}...</p>
+              <div class="package-meta">
+                <span class="meta-tag">${p.days}</span>
+                <span class="meta-tag">${p.type}</span>
+                <span class="meta-tag" style="color: var(--primary); font-weight: bold;">${formatPrice(p.price)}</span>
+              </div>
+            </div>
+            <div class="package-actions" style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary edit-btn" data-id="${p.id}" style="padding: 6px 12px; font-size: 0.8rem;">Edit</button>
+              <button class="btn btn-danger delete-btn" data-id="${p.id}" style="padding: 6px 12px; font-size: 0.8rem;">Delete</button>
+            </div>
+          </div>
+        `).join("");
+
+        // Attach edit event listeners
+        document.querySelectorAll(".edit-btn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const id = e.currentTarget.dataset.id;
+            const pkg = currentPackages.find(p => p.id === id);
+            if (pkg) {
+              enterEditMode(pkg);
+            }
+          });
+        });
+
+        // Attach delete event listeners
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            const id = e.target.dataset.id;
+            if (confirm("Are you sure you want to delete this package?")) {
+              await deletePackage(id);
+            }
+          });
+        });
+      }
+
+      // Search event listener
+      packageSearch.addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        renderPackages();
+      });
+
+      // Edit Mode transitions
+      function enterEditMode(pkg) {
+        editingPackageId = pkg.id;
+        formTitle.textContent = `Edit Package: ${pkg.title}`;
+        submitPackageBtn.textContent = "Save & Update Package";
+        cancelEditBtn.style.display = "block";
+
+        // Prepopulate form fields
+        document.getElementById("pTitle").value = pkg.title;
+        document.getElementById("pDestination").value = pkg.destination;
+        document.getElementById("pRegion").value = pkg.region;
+        document.getElementById("pType").value = pkg.type;
+        document.getElementById("pDays").value = pkg.days;
+        document.getElementById("pPrice").value = pkg.price;
+        document.getElementById("pImage").value = pkg.image;
+        document.getElementById("pSummary").value = pkg.summary;
+        document.getElementById("pHighlights").value = pkg.highlights.join("\n");
+        document.getElementById("pItinerary").value = pkg.itinerary.join("\n");
+        document.getElementById("pInclusions").value = pkg.inclusions.join("\n");
+        document.getElementById("pExclusions").value = pkg.exclusions.join("\n");
+
+        // Scroll form into view
+        addPackageForm.scrollIntoView({ behavior: "smooth" });
+      }
+
+      function exitEditMode() {
+        editingPackageId = null;
+        formTitle.textContent = "Add New Package";
+        submitPackageBtn.textContent = "Create & Publish Package";
+        cancelEditBtn.style.display = "none";
+        addPackageForm.reset();
+      }
+
+      cancelEditBtn.addEventListener("click", exitEditMode);
+
+      // Delete Package
+      async function deletePackage(id) {
+        try {
+          const res = await fetch("/api/packages/delete", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${sessionStorage.getItem("admin_token")}`
+            },
+            body: JSON.stringify({ id })
+          });
+
+          if (res.ok) {
+            showToast("Package deleted successfully!", "success");
+            if (editingPackageId === id) {
+              exitEditMode();
+            }
+            fetchPackages();
+          } else {
+            const data = await res.json();
+            showToast(data.error || "Failed to delete package.", "error");
+          }
+        } catch (err) {
+          showToast("Network error occurred.", "error");
+        }
+      }
+
+      // Add/Edit Package form handler
+      addPackageForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Parse line-by-line inputs
+        const parseLines = (id) => {
+          return document.getElementById(id).value
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line => line.length > 0);
+        };
+
+        const title = document.getElementById("pTitle").value.trim();
+        const payload = {
+          id: editingPackageId || title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+          title,
+          destination: document.getElementById("pDestination").value.trim(),
+          region: document.getElementById("pRegion").value,
+          type: document.getElementById("pType").value.trim(),
+          days: document.getElementById("pDays").value.trim(),
+          price: Number(document.getElementById("pPrice").value),
+          image: document.getElementById("pImage").value.trim(),
+          summary: document.getElementById("pSummary").value.trim(),
+          highlights: parseLines("pHighlights"),
+          itinerary: parseLines("pItinerary"),
+          inclusions: parseLines("pInclusions"),
+          exclusions: parseLines("pExclusions")
+        };
+
+        const url = editingPackageId ? "/api/packages/edit" : "/api/packages";
+        const successMsg = editingPackageId ? "Package updated successfully!" : "New package created & published!";
+
+        try {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${sessionStorage.getItem("admin_token")}`
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+            showToast(successMsg, "success");
+            exitEditMode();
+            fetchPackages();
+          } else {
+            const data = await res.json();
+            showToast(data.error || "Failed to save package.", "error");
+          }
+        } catch (err) {
+          showToast("Network error occurred.", "error");
+        }
+      });
+
+      // Fetch Settings
+      async function fetchSettings() {
+        try {
+          const res = await fetch("/api/settings");
+          if (res.ok) {
+            const data = await res.json();
+            document.getElementById("setAddress").value = data.address || "";
+            document.getElementById("setWhatsapp").value = data.whatsapp || "";
+            document.getElementById("setEmail").value = data.email || "";
+            document.getElementById("setPhones").value = (data.phoneNumbers || []).join("\n");
+            document.getElementById("setInstaHandle").value = data.instagramHandle || "";
+            document.getElementById("setInstaUrl").value = data.instagramUrl || "";
+          }
+        } catch (err) {
+          console.error("Failed to fetch settings", err);
+        }
+      }
+
+      // Save Settings Form submit handler
+      settingsForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const parseLines = (id) => {
+          return document.getElementById(id).value
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line => line.length > 0);
+        };
+
+        const payload = {
+          address: document.getElementById("setAddress").value.trim(),
+          whatsapp: document.getElementById("setWhatsapp").value.trim(),
+          email: document.getElementById("setEmail").value.trim(),
+          phoneNumbers: parseLines("setPhones"),
+          instagramHandle: document.getElementById("setInstaHandle").value.trim(),
+          instagramUrl: document.getElementById("setInstaUrl").value.trim()
+        };
+
+        try {
+          const res = await fetch("/api/settings", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${sessionStorage.getItem("admin_token")}`
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+            showToast("Settings saved successfully! Website is updated.", "success");
+          } else {
+            const data = await res.json();
+            showToast(data.error || "Failed to save settings.", "error");
+          }
+        } catch (err) {
+          showToast("Network error occurred.", "error");
+        }
+      });
+
+      // Fetch Feedback Records
+      async function fetchFeedback() {
+        try {
+          const res = await fetch("/api/feedback", {
+            headers: {
+              "Authorization": `Bearer ${sessionStorage.getItem("admin_token")}`
+            }
+          });
+          if (res.ok) {
+            currentFeedback = await res.json();
+            renderFeedback();
+          } else {
+            showToast("Failed to fetch feedback records.", "error");
+          }
+        } catch (err) {
+          showToast("Network error fetching feedback.", "error");
+        }
+      }
+
+      // Render Feedback Table
+      function renderFeedback() {
+        if (!feedbackTableBody) return;
+        
+        if (currentFeedback.length === 0) {
+          feedbackTableBody.innerHTML = `
+            <tr>
+              <td colspan="8" style="text-align: center; color: var(--text-gray); padding: 40px;">No feedback submissions yet.</td>
+            </tr>
+          `;
+          return;
+        }
+        
+        feedbackTableBody.innerHTML = currentFeedback.map((fb, idx) => {
+          const dateStr = new Date(fb.submittedDate).toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+          
+          return `
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="font-weight: 600; color: var(--text-muted); padding: 12px;">${idx + 1}</td>
+              <td style="font-weight: 500; padding: 12px;">${escapeHTML(fb.collegeName)}</td>
+              <td style="padding: 12px;">${escapeHTML(fb.studentName)}</td>
+              <td style="text-align: center; font-weight: 600; color: var(--primary); padding: 12px;">${fb.foodRating}</td>
+              <td style="text-align: center; font-weight: 600; color: var(--primary); padding: 12px;">${fb.travelRating}</td>
+              <td style="text-align: center; font-weight: 600; color: var(--primary); padding: 12px;">${fb.placesRating}</td>
+              <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 12px;" title="${escapeHTML(fb.comments || '')}">${escapeHTML(fb.comments || '-')}</td>
+              <td style="color: var(--text-muted); font-size: 0.85rem; padding: 12px;">${dateStr}</td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      function escapeHTML(str) {
+        if (!str) return "";
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // Refresh Feedback
+      btnRefreshFeedback.addEventListener("click", () => {
+        fetchFeedback();
+        showToast("Feedback list refreshed!", "success");
+      });
+
+      // Copy Form Link
+      btnCopyFeedbackLink.addEventListener("click", () => {
+        const publicLink = `${window.location.origin}/feedback.html`;
+        navigator.clipboard.writeText(publicLink).then(() => {
+          showToast("Feedback form link copied to clipboard!", "success");
+        }).catch(() => {
+          showToast("Failed to copy link.", "error");
+        });
+      });
+
+      // Export to Excel (CSV)
+      btnExportCSV.addEventListener("click", () => {
+        if (currentFeedback.length === 0) {
+          showToast("No feedback to export.", "error");
+          return;
+        }
+        
+        const headers = ["No.", "College/Institute Name", "Student Name", "Food Rating", "Travel Rating", "Places Rating", "Comments", "Submitted Date"];
+        const csvRows = [headers.join(",")];
+        
+        currentFeedback.forEach((fb, idx) => {
+          const row = [
+            idx + 1,
+            `"${fb.collegeName.replace(/"/g, '""')}"`,
+            `"${fb.studentName.replace(/"/g, '""')}"`,
+            fb.foodRating,
+            fb.travelRating,
+            fb.placesRating,
+            `"${(fb.comments || '').replace(/\r?\n/g, ' ').replace(/"/g, '""')}"`,
+            `"${fb.submittedDate}"`
+          ];
+          csvRows.push(row.join(","));
+        });
+        
+        const csvString = csvRows.join("\n");
+        const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `gk_holidays_feedback_${Date.now()}.csv`);
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showToast("CSV downloaded successfully!", "success");
+      });
+
+      // Toast helper
+      function showToast(message, type = "success") {
+        const toastContainer = document.getElementById("toastContainer");
+        if (!toastContainer) return;
+
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+
+        toastContainer.appendChild(toast);
+        
+        // Reflow
+        void toast.offsetWidth;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+          setTimeout(() => toast.remove(), 300);
+        }, 4000);
+      }
+    });
+  </script>
+</body>
+</html>

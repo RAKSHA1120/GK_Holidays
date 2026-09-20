@@ -1,0 +1,42 @@
+[
+  {
+    "id": "mock-fb-1",
+    "collegeName": "PSG College of Technology",
+    "studentName": "Rahul K.",
+    "foodRating": 5,
+    "travelRating": 4,
+    "placesRating": 5,
+    "comments": "The Munnar trip was organized exceptionally well. Food was delicious and hygienic. The bus seating was very comfortable!",
+    "submittedDate": "2026-08-01T10:30:00.000Z"
+  },
+  {
+    "id": "mock-fb-2",
+    "collegeName": "Kongu Engineering College",
+    "studentName": "Deepika S.",
+    "foodRating": 4,
+    "travelRating": 5,
+    "placesRating": 4,
+    "comments": "Had an amazing time in Kochi and Wonderla. The guides were friendly, and the entry tickets were pre-booked, so we had no waiting time.",
+    "submittedDate": "2026-08-05T14:15:00.000Z"
+  },
+  {
+    "id": "fb-1786283865302-bgth1rutl",
+    "collegeName": "K.S.Rangasamy College of Technology",
+    "studentName": "Raksha",
+    "foodRating": 4,
+    "travelRating": 5,
+    "placesRating": 4,
+    "comments": "Nice trip",
+    "submittedDate": "2026-08-09T13:57:45.302Z"
+  },
+  {
+    "id": "fb-1789912323415-4y47a94bw",
+    "collegeName": "K.S.Rangasamy College of Technology",
+    "studentName": "Ram",
+    "foodRating": 4,
+    "travelRating": 4,
+    "placesRating": 4,
+    "comments": "Good",
+    "submittedDate": "2026-09-20T13:52:03.415Z"
+  }
+]
