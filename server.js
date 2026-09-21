@@ -1,6 +1,18 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
+
+// Load .env variables safely for local development (Node 20.12+ / 24+)
+if (typeof process.loadEnvFile === "function") {
+  try {
+    process.loadEnvFile();
+  } catch (err) {
+    if (err.code !== "ENOENT") {
+      console.warn("Notice: Failed to load .env file:", err.message);
+    }
+  }
+}
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +28,18 @@ const MIME_TYPES = {
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon"
 };
+
+function safeCompare(input, secret) {
+  if (typeof input !== "string" || typeof secret !== "string") {
+    return false;
+  }
+  if (input.length === 0 || secret.length === 0) {
+    return false;
+  }
+  const inputHash = crypto.createHash("sha256").update(input).digest();
+  const secretHash = crypto.createHash("sha256").update(secret).digest();
+  return crypto.timingSafeEqual(inputHash, secretHash);
+}
 
 function readRequestBody(req) {
   return new Promise((resolve) => {
@@ -34,8 +58,16 @@ function readRequestBody(req) {
 }
 
 function isAuthorized(req) {
+  const configuredToken = process.env.ADMIN_TOKEN;
+  if (!configuredToken || typeof configuredToken !== "string" || configuredToken.trim() === "") {
+    return false;
+  }
   const authHeader = req.headers["authorization"] || "";
-  return authHeader === "Bearer gk-secret-admin-session-token-2026" || authHeader === "Bearer apex-secret-admin-session-token-2026";
+  if (!authHeader.startsWith("Bearer ")) {
+    return false;
+  }
+  const token = authHeader.slice(7).trim();
+  return safeCompare(token, configuredToken.trim());
 }
 
 const server = http.createServer((req, res) => {
@@ -223,9 +255,29 @@ const server = http.createServer((req, res) => {
 
   if (req.method === "POST" && pathname === "/api/admin/login") {
     readRequestBody(req).then(body => {
-      if (body.password === "GKAdmin2026" || body.password === "ApexAdmin2026") {
+      const adminPassword = process.env.ADMIN_PASSWORD;
+      const adminToken = process.env.ADMIN_TOKEN;
+
+      // Fail securely if environment variables are missing or empty
+      if (
+        !adminPassword ||
+        typeof adminPassword !== "string" ||
+        adminPassword.trim() === "" ||
+        !adminToken ||
+        typeof adminToken !== "string" ||
+        adminToken.trim() === ""
+      ) {
+        console.error("Admin login error: ADMIN_PASSWORD or ADMIN_TOKEN environment variable is not configured.");
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Server authentication configuration error" }));
+        return;
+      }
+
+      const submittedPassword = (body && typeof body.password === "string") ? body.password : "";
+
+      if (safeCompare(submittedPassword, adminPassword.trim())) {
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ token: "gk-secret-admin-session-token-2026" }));
+        res.end(JSON.stringify({ token: adminToken.trim() }));
       } else {
         res.writeHead(401, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Invalid password" }));
@@ -348,17 +400,64 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Normalize URL path
-  let filePath = "." + pathname;
-  if (filePath === "./" || filePath === ".") {
-    filePath = "./index.html";
+  // --- Static File Serving & Hardening ---
+  // Block any path traversal attempts in raw URL or pathname
+  if (req.url.includes("..") || req.url.includes("\\") || pathname.includes("..")) {
+    res.writeHead(403, { "Content-Type": "text/plain" });
+    res.end("403 Forbidden");
+    return;
   }
 
-  // Resolve absolute path and ensure it's inside the workspace
-  const resolvedPath = path.resolve(filePath);
-  const rootPath = path.resolve(".");
+  // Decode URL pathname and prevent URI malformation attacks
+  let safePathname;
+  try {
+    safePathname = decodeURIComponent(pathname);
+  } catch (e) {
+    res.writeHead(400, { "Content-Type": "text/plain" });
+    res.end("400 Bad Request");
+    return;
+  }
 
-  if (!resolvedPath.startsWith(rootPath)) {
+  // Prevent null-byte injection
+  if (safePathname.includes("\0")) {
+    res.writeHead(400, { "Content-Type": "text/plain" });
+    res.end("400 Bad Request");
+    return;
+  }
+
+  // Normalize path and set default index
+  let relativePath = safePathname;
+  if (relativePath === "/" || relativePath === "") {
+    relativePath = "/index.html";
+  }
+
+  const rootPath = path.resolve(__dirname);
+  // Normalize and resolve path inside workspace
+  const resolvedPath = path.resolve(rootPath, "." + path.sep + path.normalize(relativePath));
+
+  // Path Traversal Check: strictly enforce that resolvedPath is within rootPath
+  if (resolvedPath !== rootPath && !resolvedPath.startsWith(rootPath + path.sep)) {
+    res.writeHead(403, { "Content-Type": "text/plain" });
+    res.end("403 Forbidden");
+    return;
+  }
+
+  // Sensitive File Protection:
+  // Disallow dotfiles (.env, .git, etc.), backend source files, and database JSON files
+  const relFromRoot = path.relative(rootPath, resolvedPath);
+  const pathParts = relFromRoot.split(path.sep);
+  const filename = path.basename(resolvedPath).toLowerCase();
+
+  const isDotFile = pathParts.some(part => part.startsWith("."));
+  const isForbiddenFile =
+    filename === "server.js" ||
+    filename === "package.json" ||
+    filename === "package-lock.json" ||
+    filename.endsWith("-db.json") ||
+    filename.endsWith(".db") ||
+    filename.endsWith(".sqlite");
+
+  if (isDotFile || isForbiddenFile) {
     res.writeHead(403, { "Content-Type": "text/plain" });
     res.end("403 Forbidden");
     return;
