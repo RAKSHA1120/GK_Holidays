@@ -12,5 +12,8 @@
     "static-site"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.116.0"
+  }
 }
