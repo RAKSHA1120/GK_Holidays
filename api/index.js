@@ -1,14 +1,29 @@
 const crypto = require("crypto");
 const { createClient } = require("@supabase/supabase-js");
 
+// Load .env variables safely for local development (Node 20.12+ / 24+)
+if (typeof process.loadEnvFile === "function") {
+  try {
+    process.loadEnvFile();
+  } catch (err) {
+    if (err.code !== "ENOENT") {
+      console.warn("Notice: Failed to load .env file:", err.message);
+    }
+  }
+}
+
 // Initialize Supabase Client
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 let supabase = null;
-if (supabaseUrl && supabaseKey) {
-  supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false, autoRefreshToken: false }
-  });
+function getSupabase() {
+  if (supabase) return supabase;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (supabaseUrl && supabaseKey) {
+    supabase = createClient(supabaseUrl, supabaseKey, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    });
+  }
+  return supabase;
 }
 
 function safeCompare(input, secret) {
@@ -24,8 +39,17 @@ function safeCompare(input, secret) {
 }
 
 function readRequestBody(req) {
-  if (req.body && typeof req.body === "object") {
-    return Promise.resolve(req.body);
+  if (req.body) {
+    if (typeof req.body === "object") {
+      return Promise.resolve(req.body);
+    }
+    if (typeof req.body === "string") {
+      try {
+        return Promise.resolve(JSON.parse(req.body));
+      } catch (e) {
+        return Promise.resolve({});
+      }
+    }
   }
   return new Promise((resolve) => {
     let body = "";
@@ -65,10 +89,29 @@ function isAuthorized(req) {
 }
 
 module.exports = async function handler(req, res) {
+  // Ensure Supabase client is initialized
+  supabase = getSupabase();
+
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let pathname = parsedUrl.pathname;
 
-  // Normalize path if rewritten from /api
+  // Resolve original route path whether called directly, via /api, or rewritten by Vercel
+  const queryPath = parsedUrl.searchParams.get("_path") || (req.query && req.query._path);
+  const matchedPath = req.headers["x-matched-path"] || req.headers["x-invoke-path"];
+
+  // If the path reflects the serverless entrypoint (/api/index.js, /api/index, /api), unpack the rewritten subroute
+  if (pathname === "/api/index.js" || pathname === "/api/index" || pathname === "/api" || pathname === "/api/") {
+    if (queryPath) {
+      pathname = "/api/" + queryPath.replace(/^\/+/, "");
+    } else if (matchedPath && matchedPath.startsWith("/api") && !matchedPath.endsWith("index.js") && !matchedPath.endsWith("index")) {
+      pathname = matchedPath;
+    } else {
+      pathname = "/api";
+    }
+  }
+
+  // Remove trailing slash
+  pathname = pathname.replace(/\/+$/, "") || "/";
   if (!pathname.startsWith("/api")) {
     pathname = "/api" + (pathname.startsWith("/") ? pathname : "/" + pathname);
   }
