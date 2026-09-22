@@ -862,7 +862,19 @@
             body: JSON.stringify({ password })
           });
 
-          const data = await res.json();
+          const contentType = res.headers.get("content-type") || "";
+          let data = {};
+          if (contentType.includes("application/json")) {
+            try {
+              data = await res.json();
+            } catch (jsonErr) {
+              data = {};
+            }
+          } else {
+            const text = await res.text();
+            data = { error: text || `Server error (${res.status})` };
+          }
+
           if (res.ok) {
             sessionStorage.setItem("admin_token", data.token);
             loginOverlay.style.display = "none";
@@ -871,7 +883,7 @@
             fetchSettings();
             fetchFeedback();
           } else {
-            showToast(data.error || "Login failed", "error");
+            showToast(data.error || `Login failed (${res.status})`, "error");
           }
         } catch (err) {
           showToast("Network error. Try again.", "error");
@@ -1027,8 +1039,15 @@
             }
             fetchPackages();
           } else {
-            const data = await res.json();
-            showToast(data.error || "Failed to delete package.", "error");
+            const contentType = res.headers.get("content-type") || "";
+            let errorMsg = `Failed to delete package (${res.status})`;
+            if (contentType.includes("application/json")) {
+              try {
+                const data = await res.json();
+                errorMsg = data.error || errorMsg;
+              } catch (_) {}
+            }
+            showToast(errorMsg, "error");
           }
         } catch (err) {
           showToast("Network error occurred.", "error");
@@ -1082,8 +1101,15 @@
             exitEditMode();
             fetchPackages();
           } else {
-            const data = await res.json();
-            showToast(data.error || "Failed to save package.", "error");
+            const contentType = res.headers.get("content-type") || "";
+            let errorMsg = `Failed to save package (${res.status})`;
+            if (contentType.includes("application/json")) {
+              try {
+                const data = await res.json();
+                errorMsg = data.error || errorMsg;
+              } catch (_) {}
+            }
+            showToast(errorMsg, "error");
           }
         } catch (err) {
           showToast("Network error occurred.", "error");
@@ -1141,8 +1167,15 @@
           if (res.ok) {
             showToast("Settings saved successfully! Website is updated.", "success");
           } else {
-            const data = await res.json();
-            showToast(data.error || "Failed to save settings.", "error");
+            const contentType = res.headers.get("content-type") || "";
+            let errorMsg = `Failed to save settings (${res.status})`;
+            if (contentType.includes("application/json")) {
+              try {
+                const data = await res.json();
+                errorMsg = data.error || errorMsg;
+              } catch (_) {}
+            }
+            showToast(errorMsg, "error");
           }
         } catch (err) {
           showToast("Network error occurred.", "error");

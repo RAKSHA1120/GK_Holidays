@@ -112,8 +112,9 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  // Normalize: remove trailing slash and ensure /api prefix
+  // Normalize: remove trailing slash, strip .js extension if invoked directly, and ensure /api prefix
   pathname = pathname.replace(/\/+$/, "") || "/";
+  pathname = pathname.replace(/\.js$/i, "");
   if (!pathname.startsWith("/api")) {
     pathname = "/api" + (pathname.startsWith("/") ? pathname : "/" + pathname);
   }
