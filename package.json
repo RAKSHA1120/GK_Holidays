@@ -2,7 +2,6 @@
   "name": "gk-holidays",
   "version": "1.0.0",
   "description": "GK Holidays - Simple Premium Static Travel Website",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
